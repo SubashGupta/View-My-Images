@@ -1,0 +1,66 @@
+<!-- Group10-Project1_HtmlFiles-->
+<!DOCTYPE html>
+<head>
+	<title>View Your Photos</title>
+<style>
+h3,body{
+background-color: rgb(122, 215, 122);
+}
+form{
+  text-align:center;
+}
+
+h1 {
+  color: maroon;
+  text-align:center;
+  font-family:Book Antiqua;
+}
+h3 {
+  color: maroon;
+  font-family:Book Antiqua;
+}
+footer {
+color: maroon;
+  text-align:center;
+  font-family:Book Antiqua;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+</style>
+</head>
+
+<body>
+	<h1>View Your Photos</h1>
+	<br><br>
+		{% for category, message in get_flashed_messages(with_categories = true) %}
+			 <div class = "alert alert-danger" style="text-align: center; color: rgb(192, 3, 3);font-style:italic bold">
+				{{ message }}
+			 </div>
+	{% endfor %}<br>
+	<br><br><br>
+	<form enctype="multipart/form-data" action="/uploads" method="post">
+	  <div>
+		<label for="file" style = "color: maroon;font-family:Book Antiqua;">Choose the file to upload: </label>
+		<input type="file" id="file" name="form_file" accept="image/jpeg"/>
+	  </div>
+	  <br>
+	  <div>
+		<button style="color: maroon;font-family:Book Antiqua; background:#F2ACB9 ;color:black; border:none; border-radius:15px;padding:10px">Submit</button>
+	  </div>
+	  <br><br>
+	</form>
+	<h3>View Your Saves Photos:</h3> 
+	{% for file in fileslist: %} <!-- Jinja2 syntax in embed python code in html file. -->
+	   <!--<li>
+		<a href="files/{{file}}" target="_blank"> {{file}}</a>
+		<a href="files/{{ file }}" download> <i class="fa fa-download"></i>
+			<img src="{{url_for('static',filename='download.png')}}" width="20" height="20" style="padding-top: 2px;">
+		</a>
+	  </li>-->
+	  <li><a href="files/{{file}}" target="_blank"> {{file}}</a></li> <!-- Here target is used to open img in new blank tab-->
+	{% endfor %}
+</body>
+<footer>
+  <p><b>@Copyright of Subash Gupta Karamsetty, Raviteja Allu, Akhil Yarlagadda, Sandeep Mandapati, Seema Srinivas</b></p>
+</footer>

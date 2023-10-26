@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Image</title>
+    <style>
+        h2 {
+  color: maroon;
+  text-align:center;
+  font-family:Book Antiqua;
+}
+    </style>
+</head>
+<body style="margin: 0; padding: 0;background-color: rgb(122, 215, 122);">
+
+    <!-- Space of 1 inch at the top -->
+    <h2><center><i>Your selected image is: {{fname}}</i></center></h2>
+    <br>    
+    <div style="text-align: center;">
+        <img src="data:image/jpeg;base64,{{image_base64}}" alt="Image" width="500" height="400" style="display: block; margin: 0 auto;">
+    </div>
+    <br>
+    <br>
+    <!-- Table with two columns below the image -->
+    <table style="width: 50%; text-align: center; margin-left: auto; margin-right:auto;  border-collapse: collapse; background-color: #f2f2f2;">
+        <thead>
+            <tr>
+                <th style="width: 50%; border: 1px solid #f36969;"><i>Attribute </i></th>
+                <th style="width: 50%; border: 1px solid #f36969;"><i>Value </i></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for k,v in metadata.items() %}
+            <tr> 
+                <td style="width: 50%; border: 1px solid #f36969;"><i> {{k}} </i></td>
+                <td style="width: 50%; border: 1px solid #f36969;"><i> {{v}} </i></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
