@@ -15,7 +15,7 @@ COPY Project.py .
 COPY ./templates ./templates
 
 #COPY AuthenticationCredentials.json .
-ENV GOOGLE_APPLICATION_CREDENTIALS=projects/213668284036/secrets/credentials
+#ENV GOOGLE_APPLICATION_CREDENTIALS=projects/213668284036/secrets/credentials
 
 
 #PORT EXPOSURE
