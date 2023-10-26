@@ -25,7 +25,8 @@ def home():
     for file in fileslist1:
         fileslist += "<li><a href=\"/files1/" + file + "\">" + file + "</a></li>"'''
     return render_template("home.html",fileslist=fileslist)
-	
+
+#The below code will help us to access the credentials.json file secretly and dynamically.	
 def access_secret_version(project_id, secret_id, version_id="latest"):
     """
     Access the payload of the specified secret version.
