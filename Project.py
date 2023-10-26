@@ -8,6 +8,8 @@ import glob
 from google.cloud import storage
 from google.cloud import datastore
 from google.cloud import secretmanager
+from google.oauth2 import service_account
+
 import json
 
 
@@ -37,7 +39,8 @@ def access_secret_version(project_id, secret_id, version_id="latest"):
 project_id = "group10-project1"
 secret_id = "authentication-credentials"
 credentials_json = access_secret_version(project_id, secret_id)
-credentials = json.loads(credentials_json)
+credentials_info = json.loads(credentials_json)
+credentials = service_account.Credentials.from_service_account_info(credentials_info)
 
 @app.route("/uploads", methods=['POST'])
 def uploads():
