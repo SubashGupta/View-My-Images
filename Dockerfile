@@ -13,6 +13,7 @@ RUN pip install --trusted-host pypi.python.org -r requirements.txt
 #copy the contents into our working directory /app now.
 COPY Project.py .
 COPY ./templates ./templates
+COPY ./static ./static
 
 #COPY AuthenticationCredentials.json .
 #ENV GOOGLE_APPLICATION_CREDENTIALS=projects/213668284036/secrets/credentials

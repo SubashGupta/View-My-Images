@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+<title>View your Photos</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='edits.css') }}">
+<style>
+body{
+    background-color: linen;
+	text-align: center;
+}
+footer {
+color: maroon;
+  text-align:center;
+  font-family:Book Antiqua;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+h1 {
+  color: maroon;
+  text-align:center;
+  font-family:Book Antiqua;
+}
+	 .inline-block-child {
+  display: inline-block;
+}
+</style>
+</head>
+<body>
+  <div><br>
+    <h1 style='font-family:Book Antiqua;'><em> Welcome to View your Photos Application</em></h1>
+  </div><br><br>
+  
+		{% for category, message in get_flashed_messages(with_categories = true) %}
+			 <div class = "alert alert-danger" style="text-align: center; color: rgb(192, 3, 3);font-style:italic bold">
+				{{ message }}
+			 </div>
+	{% endfor %}<br>
+
+<br>
+<br>
+
+<div class = 'parent'>
+	<div class='child inline-block-child'>
+		<form enctype="multipart/form-data" action="/login">
+			<button style="color: maroon;font-family:Book Antiqua; background:#F2ACB9 ;color:black; border:none; border-radius:15px;padding:10px">Login</button>
+		</form>
+	</div>
+	<div class='child inline-block-child'>
+		<form enctype="multipart/form-data" action="{{url_for('signup')}}">
+			<button style="color: maroon;font-family:Book Antiqua; background:#F2ACB9 ;color:black; border:none; border-radius:15px;padding:10px">SignUp</button>
+		</form>
+	</div>
+</div>
+<br>
+	<h2 style='font-family:Book Antiqua;'><em> Click SignUp or Login to proceed....</em></h2>
+    <footer>
+		<p><b>@Copyright of Subash Gupta Karamsetty, Raviteja Allu, Akhil Yarlagadda, Seema Srinivas, Sandeep Mandapati</b>
+    </footer>
+</body>
+</html>

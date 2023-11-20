@@ -1,21 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Image</title>
+<title>My Image</title>
     <style>
         h2 {
   color: maroon;
   text-align:center;
   font-family:Book Antiqua;
 }
+.inline-block-child {
+  display: inline-block;
+}
     </style>
 </head>
-<body style="margin: 0; padding: 0;background-color: rgb(146, 203, 240)">
+<body style="margin: 0; padding: 0;background-color: linen;">
 
     <!-- Space of 1 inch at the top -->
     <h2><center><i>Your selected image is: {{fname}}</i></center></h2>
     <br>    
-    <div style="text-align: center;">
+    <div class = 'parent'>
+		<div class='child inline-block-child'>
+			<form enctype="multipart/form-data" action="/home" method="POST">
+				<button style="color: maroon;font-family:Book Antiqua; background:#F2ACB9 ;color:black; border:none; border-radius:15px;padding:10px">Back</button>
+			</form>
+		</div>
+		<div class='child inline-block-child'>
+			<form enctype="multipart/form-data" action="{{url_for('delete')}}" method="POST">
+				<input type="hidden" name="fname" value="{{ fname }}">
+				<button style="color: maroon;font-family:Book Antiqua; background:#F2ACB9 ;color:black; border:none; border-radius:15px;padding:10px">Delete</button>
+			</form>
+		</div>
+	</div>
+	<div style="text-align: center;">
         <img src="data:image/jpeg;base64,{{image_base64}}" alt="Image" width="500" height="400" style="display: block; margin: 0 auto;">
     </div>
     <br>

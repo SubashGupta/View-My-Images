@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<head>
+<title>User Login</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='edits.css') }}">
+<style>
+body{
+    background-color: linen;
+}
+footer {
+color: maroon;
+  text-align:center;
+  font-family:Book Antiqua;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+h1 {
+  color: maroon;
+  text-align:center;
+  font-family:Book Antiqua;
+}
+table,th,tr,td{
+    padding: 5px;
+	
+    }
+
+table{
+    border-spacing: 15px;
+     }
+</style>
+<script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+			  apiKey: "AIzaSyCjWGIF5xN9Vn4P-uNfTgbUvc769hR4AUY",
+			  authDomain: "group10-project1.firebaseapp.com",
+			  projectId: "group10-project1",
+			  storageBucket: "group10-project1.appspot.com",
+			  messagingSenderId: "213668284036",
+			  appId: "1:213668284036:web:a201b86f3d8687e85fe4d1",
+			  measurementId: "G-PTV2ZHD6T5"
+			};	
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+<body>
+  <div>
+    <h1 style='font-family:Book Antiqua;'><em> View My Images </em></h1>
+  </div><br>
+    <form method="POST" enctype="multipart/form-data" class="pure-form pure-form-aligned" id= 'login-form' action="/login">
+        <table cellspacing="10"  style=" border: 3px solid black" align="center">
+            <tr>
+                <th colspan="3" style=" color: maroon;font-family:Book Antiqua; "><h2><em>Login</em></h2></th>
+            </tr>
+            <br>
+            {% for category, message in get_flashed_messages(with_categories = true) %}
+                <div class = "alert alert-danger" style="text-align: center; color: rgb(192, 3, 3);font-style:italic bold">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <br>
+            <tr><th style="color: maroon;font-family:Book Antiqua;">E-Mail* :</th><td><input type="email" name="username" required/></td></tr>
+            <tr><th style="color: maroon;font-family:Book Antiqua;">Password* :</th><td><input type="password" name="password" required/></td></tr>
+            <tr><td colspan="3"><input type="submit" value="  Login  " style="color: maroon; font-family: Book Antiqua; background: #F2ACB9; color: black; border: none; border-radius: 15px; padding: 10px; text-align: center;" /></td></tr>
+            <tr><th colspan="3"> * Represents Mandatory Fields</th></tr>
+            <tr><th colspan="3">Don't have an account? <a href="{{ url_for('signup') }}">Click me to SignUp</a></th></tr>
+        </table>
+    </form>
+    
+    <footer>
+    <p><b>@Copyright of Subash Gupta Karamsetty, Raviteja Allu, Akhil Yarlagadda, Seema Srinivas, Sandeep Mandapati</b>
+    </footer>
+	
+<script>
+window.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var email = document.getElementsByName('username')[0].value;
+        var password = document.getElementsByName('password')[0].value;
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Get the ID token
+                userCredential.user.getIdToken().then(function(idToken) {
+                    // Send token to Flask backend in request headers
+                    fetch('/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'Authorization': 'Bearer ' + idToken
+                        },
+                        body: new URLSearchParams({
+                            'username': email,
+                            'password': password,
+                            // Add other form fields if needed
+                        })
+                    })
+                    .then(response => {
+                        if (response.redirected) {
+                            window.location.href = response.url;
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+                });
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                alert(errorMessage); // Display error message
+            });
+    });
+});
+</script>    
+</body>
+</html>

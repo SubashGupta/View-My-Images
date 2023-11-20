@@ -4,7 +4,7 @@
 	<title>View Your Photos</title>
 <style>
 h3,body{
-background-color: rgb(146, 203, 240);
+background-color: linen;
 }
 form{
   text-align:center;
@@ -27,6 +27,21 @@ color: maroon;
   bottom: 0;
   width: 100%;
 }
+.inline-block-child {
+  display: inline-block;
+}
+
+
+/* Style for buttons */
+.button {
+  color: maroon;
+  font-family: Book Antiqua;
+  background: #F2ACB9;
+  color: black;
+  border: none;
+  border-radius: 15px;
+  padding: 10px;
+}
 </style>
 </head>
 
@@ -38,7 +53,25 @@ color: maroon;
 				{{ message }}
 			 </div>
 	{% endfor %}<br>
-	<br><br><br>
+	<br><br>
+	<div class = 'parent'>
+		<div class='child inline-block-child'>
+			<form enctype="multipart/form-data" action="/home" method="POST">
+				<button class="button">Home</button>
+			</form>
+		</div>
+		<div class='child inline-block-child'>
+			<form enctype="multipart/form-data" action="{{url_for('change_password')}}">
+				<button class="button">Change Password</button>
+			</form>
+		</div>
+		<div class='child inline-block-child' style="text-align: right">
+			<form enctype="multipart/form-data" action="{{url_for('logout')}}" method="POST">
+				<button class="button">Logout</button>
+			</form>
+		</div>
+	</div>
+	<br><br>
 	<form enctype="multipart/form-data" action="/uploads" method="post">
 	  <div>
 		<label for="file" style = "color: maroon;font-family:Book Antiqua;">Choose the file to upload: </label>
@@ -58,7 +91,7 @@ color: maroon;
 			<img src="{{url_for('static',filename='download.png')}}" width="20" height="20" style="padding-top: 2px;">
 		</a>
 	  </li>-->
-	  <li><a href="files/{{file}}" target="_blank"> {{file}}</a></li> <!-- Here target is used to open img in new blank tab-->
+	  <li><a href="files/{{file}}"> {{file}}</a></li> <!-- Here target is used to open img in new blank tab-->
 	{% endfor %}
 </body>
 <footer>
