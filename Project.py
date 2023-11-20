@@ -105,7 +105,7 @@ def change_password():
         if request.method == 'POST':
             email = session['user']
             uid = session['uid']
-            old_password = request.form.get('old_password')
+            #old_password = request.form.get('old_password')
             new_password = request.form.get('new_password')
             confirm_new_password = request.form.get('confirm_new_password')
             if new_password == confirm_new_password:
