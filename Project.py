@@ -148,21 +148,26 @@ def uploads():
             foldername = session['user']
             #print("filename: ",imagefile.filename)
             if len(fname)>0:
-                imageuploadstatus = put_image_into_bucket(fname,imagefile,client,foldername)
-                if imageuploadstatus:
-                    print("Image is pushed successfully into the bucket")
+                fileslist=list_files(foldername)
+                if fname in fileslist:
+                    flash(f'An Image with the same name {fname} already uploaded by the current user. Please rename the file ad try again.','error')
+                    return redirect(url_for("home"))
                 else:
-                    print("Unable to store the image into the bucket.")
-                
-                #Code to put the metadata fetched into the datastore database.
-                status = put_metadata_into_datastore(imagefile,kinds,client1,fname,foldername)
-                if status:
-                    print("Data is pushed into the datastore database successfully")
-                else:
-                    print("Unable to store the data in the datastore. Kindly contact system administrator to further verify the issue.")
+                    imageuploadstatus = put_image_into_bucket(fname,imagefile,client,foldername)
+                    if imageuploadstatus:
+                        print("Image is pushed successfully into the bucket")
+                    else:
+                        print("Unable to store the image into the bucket.")
                     
-                flash("Image and metadata saved successfully",'error')
-                return redirect(url_for("home"))
+                    #Code to put the metadata fetched into the datastore database.
+                    status = put_metadata_into_datastore(imagefile,kinds,client1,fname,foldername)
+                    if status:
+                        print("Data is pushed into the datastore database successfully")
+                    else:
+                        print("Unable to store the data in the datastore. Kindly contact system administrator to further verify the issue.")
+                        
+                    flash("Image and metadata saved successfully",'error')
+                    return redirect(url_for("home"))
             else:
                 flash("Image was not choosen. Please select the image and then click submit",'error')
                 return redirect(url_for("home"))
